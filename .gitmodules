@@ -1,6 +1,3 @@
-[submodule "airbnb-clone"]
-	path = airbnb-clone
-	url = https://github.com/parth-sh/airbnb-clone.git
 [submodule "backend-api"]
 	path = backend-api
 	url = https://github.com/parth-sh/backend-api.git
