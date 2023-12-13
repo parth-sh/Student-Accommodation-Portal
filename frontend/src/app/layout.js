@@ -11,6 +11,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <title>Airbnb | Holiday rentals, cabins, beach houses &amp; more</title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )
