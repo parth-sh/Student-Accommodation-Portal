@@ -13,7 +13,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <title>Airbnb | Holiday rentals, cabins, beach houses &amp; more</title>
-        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"></link>
       </head>
       <body className={inter.className}>{children}</body>
     </html>

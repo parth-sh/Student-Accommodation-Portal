@@ -1,4 +1,7 @@
+"use client"
 import { useState } from 'react';
+import Modal from './Modal';
+import Login from './Login';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -7,7 +10,7 @@ const Header = () => {
         <header>
             <div className="navbar bg-base-100">
                 <div className="flex-1">
-                    <a className="btn btn-ghost text-xl">Student Accomodation Portal</a>
+                    <a href='/' className="btn btn-ghost text-xl">UniNest</a>
                 </div>
                 <div className="flex-none gap-2">
                     <div className="form-control">
@@ -19,19 +22,22 @@ const Header = () => {
                                 <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                             </div>
                         </div>
-                        <ul tabIndex={0} className={`mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 ${isOpen ? 'block' : 'hidden'}`}>
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                            </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                        <ul tabIndex={0} role='menu' className={`mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 divide-y divide-gray-100 ${isOpen ? 'block' : 'hidden'}`}>
+                            <div className='py-1' role='none'>
+                                <li><a onClick={() => document.getElementById('login_signup_modal').showModal()}>Sign up</a></li>
+                                <li><a onClick={() => document.getElementById('login_signup_modal').showModal()}>Log in</a></li>
+                            </div>
+                            <div className='py-1' role='none'>
+                                <li><a>Host your home</a></li>
+                                <li><a>Help Centre</a></li>
+                            </div>
                         </ul>
                     </div>
                 </div>
             </div>
+            <Modal id="login_signup_modal">
+                <Login/>
+            </Modal>
         </header>
     );
 };
