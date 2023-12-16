@@ -46,15 +46,15 @@ const UserCheck = () => {
         }
     }
 
-    // useEffect(() => {
-    //     let timer;
-    //     if (errorMessage) {
-    //         timer = setTimeout(() => {
-    //             setErrorMessage('');
-    //         }, 3000);
-    //     }
-    //     return () => clearTimeout(timer); // Clear timeout on component unmount or when errorMessage changes
-    // }, [errorMessage]);
+    useEffect(() => {
+        let timer;
+        if (errorMessage) {
+            timer = setTimeout(() => {
+                setErrorMessage('');
+            }, 3000);
+        }
+        return () => clearTimeout(timer); // Clear timeout on component unmount or when errorMessage changes
+    }, [errorMessage]);
 
     return (
         <div className="rounded-lg shadow-md w-full">
