@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import api from '../api';
+import api from '@/api';
 
 const UserCheck = () => {
 
@@ -36,7 +36,7 @@ const UserCheck = () => {
                 } else if (error.response && error.response.status === 500) {
                     setErrorMessage('An error occurred while processing your request.');
                 } else {
-                    console.log(error)
+                    console.error(error)
                 }
             } finally {
                 setSubmitting(false);
