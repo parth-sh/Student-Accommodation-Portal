@@ -28,13 +28,15 @@ const UserCheck = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         if (loginMethod === "email") {
             try {
-                const data = await api.get('/users/find_by_email', { email: values.email });
-                console.log(data);
+                const data = await api.get('/api/users/find_by_email', { email: values.email });
+                router.push('/login?email=' + values.email);
             } catch (error) {
                 if (error.response && error.response.status === 404) {
-                    router.push('/login');
-                } else {
+                    router.push('/signup?email=' + values.email);
+                } else if (error.response && error.response.status === 500) {
                     setErrorMessage('An error occurred while processing your request.');
+                } else {
+                    console.log(error)
                 }
             } finally {
                 setSubmitting(false);
@@ -116,7 +118,7 @@ const UserCheck = () => {
                 {
                     loginMethod !== "email" && (
                         <button
-                            className="btn w-full py-2 rounded-md border-2 border-black flex items-center justify-center gap-2"
+                            className="btn w-full py-2 rounded-md border-2 border-black flex items-center justify-center gap-2 mb-4"
                             onClick={() => { setLoginMethod("email"); setErrorMessage('') }}
                             aria-label="Continue with Email"
                         >
@@ -127,7 +129,7 @@ const UserCheck = () => {
                 {
                     loginMethod !== "phone" && (
                         <button
-                            className="btn w-full py-2 rounded-md border-2 border-black flex items-center justify-center gap-2"
+                            className="btn w-full py-2 rounded-md border-2 border-black flex items-center justify-center gap-2 mb-4"
                             onClick={() => { setLoginMethod("phone"); setErrorMessage('') }}
                             aria-label="Continue with Phone"
                         >
@@ -135,9 +137,19 @@ const UserCheck = () => {
                         </button>
                     )
                 }
+
+                {
+                    <button
+                        className="btn w-full py-2 rounded-md border-2 border-black flex items-center justify-center gap-2"
+                        onClick={() => { setLoginMethod("google"); setErrorMessage('') }}
+                        aria-label="Continue with Google"
+                    >
+                        <i className="fa-brands fa-google"></i> Continue with Google
+                    </button>
+                }
             </div>
 
-            {errorMessage && <div role="alert" className="alert alert-error flex justify-center mt-2" onClick={() => setErrorMessage('')} >
+            {errorMessage && <div role="alert" className="alert rounded-none alert-error flex justify-center mt-2" onClick={() => setErrorMessage('')} >
                 <span className="text-sm">{errorMessage}</span>
             </div>}
         </div>
