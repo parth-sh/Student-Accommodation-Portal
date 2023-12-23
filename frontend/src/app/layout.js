@@ -1,5 +1,5 @@
 import { Inter } from 'next/font/google'
-import './globals.css'
+import '@/styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +14,8 @@ export default function RootLayout({ children }) {
       <head>
         <title>Airbnb | Holiday rentals, cabins, beach houses &amp; more</title>
         <link rel="icon" href="/favicon.ico" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"></link>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"></link>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css" rel="stylesheet"></link>
       </head>
       <body className={inter.className}>{children}</body>
     </html>
