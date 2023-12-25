@@ -31,7 +31,7 @@ const SignupPage = () => {
                 }
             });
             alert(data.message);
-            // router.push('/login?email=' + values.email);
+            router.push('/login?email=' + values.email);
         } catch (error) {
             if (error.response && error.response.status === 500) {
                 setErrorMessage('An error occurred while processing your request.');

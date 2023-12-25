@@ -19,7 +19,7 @@ const ForgotPasswordSchema = Yup.object().shape({
 
 const ForgotPasswordPage = () => {
     const router = useRouter();
-    const { token } = router.query;  // Get the token from the query parameters
+    const { email, token } = router.query;  // Get the token from the query parameters
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (values, { setSubmitting }) => {
@@ -31,13 +31,15 @@ const ForgotPasswordPage = () => {
                     password_confirmation: values.confirmPassword,
                     token,
                 });
-                setErrorMessage(response.message)
+                alert(response.message)
+                router.push('/login');
             } else {
                 // This is the forgot password flow
                 const response = await api.post('/auth/password_reset', {
                     email: values.email,
                 });
-                setErrorMessage(response.message)
+                alert(response.message)
+                router.push("/")
             }
         } catch (error) {
             if (error.response && error.response.status === 500) {
@@ -74,7 +76,8 @@ const ForgotPasswordPage = () => {
                             <h1 className="text-2xl font-semibold">{token ? "Set Your New Password" : "Reset Your Password"}</h1>
                         </div>
                         <Formik
-                            initialValues={{ email: '', password: '', confirmPassword: '' }}
+                            initialValues={{ email: email || '', password: '', confirmPassword: '' }}
+                            enableReinitialize={true}
                             validationSchema={token ? ResetPasswordSchema : ForgotPasswordSchema}
                             onSubmit={handleSubmit}
                         >

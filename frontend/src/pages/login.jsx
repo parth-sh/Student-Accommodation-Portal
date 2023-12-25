@@ -5,8 +5,6 @@ import '@/styles/globals.css'
 import api from '@/api';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import Modal from '@/components/Modal';
-import Link from 'next/link';
 
 
 const LoginSchema = Yup.object().shape({
@@ -26,7 +24,7 @@ const LoginPage = () => {
                 password: values.password
             });
             localStorage.setItem("loggedIn", true);
-            router.push('/#');
+            router.push('/');
         } catch (error) {
             if (error.response && error.response.status === 500) {
                 setErrorMessage('An error occurred while processing your request.');
@@ -89,9 +87,7 @@ const LoginPage = () => {
                     </div>}
                 </div>
                 <div className="text-center mt-4">
-                    <Link href="/forgot-password">
-                        <span className="text-blue-500 hover:underline">Forgot Password?</span>
-                    </Link>
+                    <span onClick={() => {router.push("/forgot-password?email=" + email)}} className="text-blue-500 hover:underline">Forgot Password?</span>
                 </div>
             </div>
         </>
