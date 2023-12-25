@@ -25,7 +25,6 @@ const LoginPage = () => {
                 email: values.email,
                 password: values.password
             });
-            alert(data.message)
             localStorage.setItem("loggedIn", true);
             router.push('/#');
         } catch (error) {

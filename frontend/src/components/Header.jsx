@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image'
 import api from '@/api';
@@ -15,7 +15,7 @@ const Header = () => {
         try {
             const data = await api.del('/auth/session');
             localStorage.removeItem("loggedIn");
-            router.replace('/')
+            location.reload();
         } catch (error) {
             console.error(error)
         }
@@ -39,7 +39,7 @@ const Header = () => {
                     <ul tabIndex={0} role='menu' className={`mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 divide-y divide-gray-100 ${isOpen ? 'block' : 'hidden'}`}>
                         {loggedIn ? <div className='py-1' role='none'>
                             <li><a onClick={() => logout()}>Log out</a></li>
-                            <li><a onClick={() => router.push('/update-passwrod')}>Update password</a></li>
+                            <li><a onClick={() => router.push('/update-password')}>Update password</a></li>
                         </div> : <div className='py-1' role='none'>
                             <li><a onClick={() => document.getElementById('login_signup_modal').showModal()}>Sign up</a></li>
                             <li><a onClick={() => document.getElementById('login_signup_modal').showModal()}>Log in</a></li>

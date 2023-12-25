@@ -31,10 +31,11 @@ const UserCheck = () => {
                 const data = await api.get('/api/users/find_by_email', { email: values.email });
                 router.push('/login?email=' + values.email);
             } catch (error) {
-                if (error.response && error.response.status === 404) {
-                    router.push('/signup?email=' + values.email);
-                } else if (error.response && error.response.status === 500) {
+                if (error.response && error.response.status === 500) {
                     setErrorMessage('An error occurred while processing your request.');
+                } else if (error.response && error.response.status) {
+                    setErrorMessage(error.response.data.errors.join(', '))
+                    router.push('/signup?email=' + values.email);
                 } else {
                     console.error(error)
                 }

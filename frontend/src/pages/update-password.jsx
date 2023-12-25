@@ -5,33 +5,30 @@ import '@/styles/globals.css'
 import api from '@/api';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import Modal from '@/components/Modal';
 
-
-const SignupSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email format').required('Email is required'),
-    password: Yup.string().min(6, 'Password is too short').required('Password is required'),
-    confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match')
-        .required('Confirm Password is required'),
+const UpdatePasswordSchema = Yup.object().shape({
+    currentPassword: Yup.string().required('Current Password is required'),
+    newPassword: Yup.string().min(6, 'New Password is too short').required('New Password is required'),
+    confirmNewPassword: Yup.string()
+        .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
+        .required('Confirm New Password is required'),
 });
 
-const SignupPage = () => {
+const UpdatePasswordPage = () => {
     const router = useRouter();
-    const { email } = router.query;
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            const data = await api.post('/auth/registration', {
+            const data = await api.put('/auth/password', {
                 user: {
-                    email: values.email,
-                    password: values.password,
-                    password_confirmation: values.confirmPassword
+                    password_challenge: values.currentPassword,
+                    password: values.newPassword,
+                    password_confirmation: values.confirmNewPassword
                 }
             });
             alert(data.message);
-            // router.push('/login?email=' + values.email);
+            router.replace('/')
         } catch (error) {
             if (error.response && error.response.status === 500) {
                 setErrorMessage('An error occurred while processing your request.');
@@ -52,7 +49,7 @@ const SignupPage = () => {
                 setErrorMessage('');
             }, 3000);
         }
-        return () => clearTimeout(timer); // Clear timeout on component unmount or when errorMessage changes
+        return () => clearTimeout(timer);
     }, [errorMessage]);
 
     return (
@@ -61,33 +58,32 @@ const SignupPage = () => {
                 <div className="max-w-sm w-full border rounded-lg shadow-md mb-0">
                     <div className='p-6'>
                         <div className="text-md font-semibold text-center py-3 border-b text-gray-400">
-                            Sign Up
+                            Update Password
                         </div>
                         <div className="text-center m-6">
-                            <h1 className="text-2xl font-semibold">Join Uninest</h1>
+                            <h1 className="text-2xl font-semibold">Secure Your Account</h1>
                         </div>
                         <Formik
-                            initialValues={{ email: email || '', password: '', confirmPassword: '' }}
-                            enableReinitialize={true}
-                            validationSchema={SignupSchema}
+                            initialValues={{ currentPassword: '', newPassword: '', confirmNewPassword: '' }}
+                            validationSchema={UpdatePasswordSchema}
                             onSubmit={handleSubmit}
                         >
                             {({ isSubmitting }) => (
                                 <Form>
                                     <div className="mb-4">
-                                        <Field name="email" type="email" placeholder="Email" className="form-input block w-full mt-1 rounded-md border-2 p-2" />
-                                        <ErrorMessage name="email" component="div" className="text-red-500 mt-1 text-xs" />
+                                        <Field name="currentPassword" type="password" placeholder="Current Password" className="form-input block w-full mt-1 rounded-md border-2 p-2" />
+                                        <ErrorMessage name="currentPassword" component="div" className="text-red-500 mt-1 text-xs" />
                                     </div>
                                     <div className="mb-4">
-                                        <Field name="password" type="password" placeholder="Password" className="form-input block w-full mt-1 rounded-md border-2 p-2" />
-                                        <ErrorMessage name="password" component="div" className="text-red-500 mt-1 text-xs" />
+                                        <Field name="newPassword" type="password" placeholder="New Password" className="form-input block w-full mt-1 rounded-md border-2 p-2" />
+                                        <ErrorMessage name="newPassword" component="div" className="text-red-500 mt-1 text-xs" />
                                     </div>
                                     <div className="mb-4">
-                                        <Field name="confirmPassword" type="password" placeholder="Confirm Password" className="form-input block w-full mt-1 rounded-md border-2 p-2" />
-                                        <ErrorMessage name="confirmPassword" component="div" className="text-red-500 mt-1 text-xs" />
+                                        <Field name="confirmNewPassword" type="password" placeholder="Confirm New Password" className="form-input block w-full mt-1 rounded-md border-2 p-2" />
+                                        <ErrorMessage name="confirmNewPassword" component="div" className="text-red-500 mt-1 text-xs" />
                                     </div>
                                     <button type="submit" disabled={isSubmitting} className="btn w-full py-2 rounded-md airbnb-pink-gradient text-white font-bold">
-                                        {isSubmitting ? <span className="loading loading-spinner loading-sm"></span> : "Sign Up"}
+                                        {isSubmitting ? <span className="loading loading-spinner loading-sm"></span> : "Update Password"}
                                     </button>
                                 </Form>
                             )}
@@ -102,4 +98,4 @@ const SignupPage = () => {
     );
 };
 
-export default SignupPage;
+export default UpdatePasswordPage;
