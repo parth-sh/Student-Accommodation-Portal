@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image'
 import api from '@/api';
-import Modal from './Modal';
+import Modal from '@/components/Modal';
 import UserCheck from './UserCheck';
 
 const Header = () => {
@@ -23,7 +23,7 @@ const Header = () => {
 
     return (
         <header>
-            <div className="navbar justify-between bg-base-100">
+            <div className="navbar justify-between bg-base-100 shadow-md">
                 <div className="hidden md:block">
                     <a href='/' className="btn btn-ghost text-xl">UniNest</a>
                 </div>
