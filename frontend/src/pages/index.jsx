@@ -13,11 +13,11 @@ export const getServerSideProps = async (context) => {
     }
 };
 
-export default function Home(data) {
+export default function Home(props) {
     return (
         <>
             <Header />
-            <Properties properties={data.properties} />
+            <Properties properties={props.properties} />
         </>
     )
 }
