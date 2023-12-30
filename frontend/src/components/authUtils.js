@@ -1,9 +1,13 @@
-export const auth_login = (user) => {
+export const auth_login = () => {
     localStorage.setItem("loggedIn", true);
     location.href = "/";
 }
 
 export const auth_logout = () => {
-    localStorage.removeItem("loggedIn");
+    localStorage.clear();
     location.href = "/";
+}
+
+export const set_user_profile = (profile) => {
+    localStorage.setItem("profile", profile);
 }

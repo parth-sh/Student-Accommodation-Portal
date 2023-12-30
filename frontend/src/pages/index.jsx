@@ -5,7 +5,7 @@ import api from '@/api';
 
 export const getServerSideProps = async (context) => {
     try {
-        const properties = await api.get('/api/home');
+        const properties = await api.get('/api/properties');
         return { props: { properties } }; // pass the properties to the page
     } catch (error) {
         console.error('Failed to fetch properties:', error);
