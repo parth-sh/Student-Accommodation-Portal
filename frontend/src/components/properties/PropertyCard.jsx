@@ -13,11 +13,11 @@ const PropertyCard = ({ property, coords }) => {
     return (
         <div className="cursor-pointer">
             <img
-                className="w-full rounded-lg aspect-square"
+                className="w-full rounded-lg aspect-square object-cover"
                 src={"data:image/jpeg;base64," + property.default_image}
                 alt={property.title}
             />
-            <div className="">
+            <div className="pt-1">
                 <p className="text-gray-900 text-sm"> {property.city} {property.state}, {property.country}</p>
                 <p className="text-gray-400 text-sm">{measureDistance()}</p>
                 <p className="text-gray-400 text-sm">8-13 Mar</p>
