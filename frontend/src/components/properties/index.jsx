@@ -11,7 +11,11 @@ const Properties = ({ properties }) => {
         try {
             const profile = await api.get('/api/profile');
             set_user_profile(profile);
-            setCoords({ latitude: profile.latitude, longitude: profile.longitude });
+            if(profile.latitude && profile.longitude) {
+                setCoords({ latitude: profile.latitude, longitude: profile.longitude });
+            } else {
+                throw new Error();
+            }
         } catch (error) {
             // https://stackoverflow.com/a/28331217/9229695
             var successHandler = function (position) {

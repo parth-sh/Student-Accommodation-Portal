@@ -4,5 +4,9 @@ This project is built around the concept of a student accommodation platform, em
 
 Features: 
 
-1. User Authentication
-3. Form Validation by Formik, Yup
+User Authentication
+
+Form Validation by Formik, Yup
+
+GeoLocation Service, measuring distance of property from user
+
