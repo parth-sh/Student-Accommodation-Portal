@@ -5,6 +5,7 @@ import '@/styles/globals.css'
 import api from '@/api';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { auth_login } from '@/components/authUtils';
 
 
 const LoginSchema = Yup.object().shape({
@@ -20,11 +21,12 @@ const LoginPage = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             const data = await api.post('/auth/session', {
-                email: values.email,
-                password: values.password
+                user: {
+                    email: values.email,
+                    password: values.password
+                }
             });
-            localStorage.setItem("loggedIn", true);
-            router.push('/');
+            auth_login();
         } catch (error) {
             if (error.response && error.response.status === 500) {
                 setErrorMessage('An error occurred while processing your request.');
@@ -87,7 +89,7 @@ const LoginPage = () => {
                     </div>}
                 </div>
                 <div className="text-center mt-4">
-                    <span onClick={() => {router.push("/forgot-password?email=" + email)}} className="text-blue-500 hover:underline">Forgot Password?</span>
+                    <span onClick={() => { router.push("/forgot-password?email=" + email) }} className="text-blue-500 hover:underline">Forgot Password?</span>
                 </div>
             </div>
         </>

@@ -6,6 +6,7 @@ import api from '@/api';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Modal from '@/components/Modal';
+import { auth_login } from '@/components/authUtils';
 
 
 const SignupSchema = Yup.object().shape({
@@ -31,7 +32,7 @@ const SignupPage = () => {
                 }
             });
             alert(data.message);
-            router.push('/login?email=' + values.email);
+            auth_login();
         } catch (error) {
             if (error.response && error.response.status === 500) {
                 setErrorMessage('An error occurred while processing your request.');

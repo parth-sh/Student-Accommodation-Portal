@@ -5,6 +5,7 @@ import Image from 'next/image'
 import api from '@/api';
 import Modal from '@/components/Modal';
 import UserCheck from './UserCheck';
+import { auth_logout } from '@/components/authUtils';
 
 const Header = () => {
     const router = useRouter();
@@ -14,8 +15,7 @@ const Header = () => {
     const logout = async () => {
         try {
             const data = await api.del('/auth/session');
-            localStorage.removeItem("loggedIn");
-            location.reload();
+            auth_logout();
         } catch (error) {
             console.error(error)
         }
