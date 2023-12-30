@@ -40,6 +40,7 @@ const Header = () => {
                         {loggedIn ? <div className='py-1' role='none'>
                             <li><a onClick={() => logout()}>Log out</a></li>
                             <li><a onClick={() => router.push('/update-password')}>Update password</a></li>
+                            <li><a onClick={() => router.push('/profile')}>Profile</a></li>
                         </div> : <div className='py-1' role='none'>
                             <li><a onClick={() => document.getElementById('login_signup_modal').showModal()}>Sign up</a></li>
                             <li><a onClick={() => document.getElementById('login_signup_modal').showModal()}>Log in</a></li>
