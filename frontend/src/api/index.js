@@ -40,9 +40,9 @@ const put = async (path, data, options = {}) => {
 };
 
 // DELETE method wrapper
-const del = async (path, options = {}) => {
+const del = async (path, params = {}) => {
     try {
-        const response = await api.delete(path, options);
+        const response = await api.delete(path, { params });
         return response.data;
     } catch (error) {
         throw error;

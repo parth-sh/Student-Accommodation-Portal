@@ -1,10 +1,29 @@
 import { convertDistance, getDistance } from "geolib";
 import FavoriteIcon from "./FavoriteIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { openUserCheckModal } from "../UserCheck";
+import api from "@/api";
 
-const PropertyCard = ({ property, coords }) => {
+const PropertyCard = ({ property, coords, fv }) => {
 
     const [isFavorite, setIsFavorite] = useState(false);
+
+    const toggleFavorite = async (property_id) => {
+        try {
+            if (isFavorite) {
+                const data = await api.del('/api/favourite', { property_id });
+            } else {
+                const data = await api.post('/api/favourite', { property_id });
+            }
+            setIsFavorite(!isFavorite);
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                openUserCheckModal();
+            } else {
+                console.error(error);
+            }
+        }
+    };
 
     function measureDistance() {
         if (coords === null) return <span className="loading loading-dots loading-xs"></span>
@@ -14,6 +33,10 @@ const PropertyCard = ({ property, coords }) => {
         return (distance);
     }
 
+    useEffect(() => {
+        setIsFavorite(fv);
+    }, [fv])
+
     return (
         <div className="cursor-pointer relative">
             <img
@@ -21,8 +44,8 @@ const PropertyCard = ({ property, coords }) => {
                 src={"data:image/jpeg;base64," + property.default_image}
                 alt={property.title}
             />
-            <button className="absolute top-2 right-2" onClick={() => setIsFavorite(!isFavorite)} >
-                <FavoriteIcon liked={isFavorite}/>
+            <button className="absolute top-2 right-2" onClick={() => toggleFavorite(property.id)} >
+                <FavoriteIcon liked={isFavorite} />
             </button>
             <div className="pt-1">
                 <p className="text-gray-900 text-sm"> {property.city} {property.state}, {property.country}</p>

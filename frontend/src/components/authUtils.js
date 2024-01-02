@@ -13,5 +13,5 @@ export const set_user_profile = (profile) => {
 }
 
 export const is_logged_in = () => {
-    localStorage.getItem('loggedIn');
+    return localStorage.getItem('loggedIn');
 }

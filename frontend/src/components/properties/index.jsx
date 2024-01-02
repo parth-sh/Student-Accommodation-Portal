@@ -6,12 +6,13 @@ import { set_user_profile } from '@/components/authUtils';
 
 const Properties = ({ properties }) => {
     const [coords, setCoords] = useState(null);
+    const [favourite_properties, setFavouriteProperties] = useState([]);
 
     async function getUserLocation() {
         try {
             const profile = await api.get('/api/profile');
             set_user_profile(profile);
-            if(profile.latitude && profile.longitude) {
+            if (profile.latitude && profile.longitude) {
                 setCoords({ latitude: profile.latitude, longitude: profile.longitude });
             } else {
                 throw new Error();
@@ -35,8 +36,18 @@ const Properties = ({ properties }) => {
         }
     }
 
+    const getUserFavouriteProperties = async () => {
+        try {
+            const data = await api.get('/api/users/favourite_properties');
+            setFavouriteProperties(data);
+        } catch (error) {
+            setFavouriteProperties([]);
+        }
+    }
+
     useEffect(() => {
         getUserLocation();
+        getUserFavouriteProperties();
     }, [])
 
     return (
@@ -44,7 +55,9 @@ const Properties = ({ properties }) => {
             <div className="flex flex-wrap">
                 {properties.map((property, index) => (
                     <div key={index} className="w-full sm:w-1/2 md:w-1/4 p-4">
-                        <PropertyCard property={property} coords={coords} />
+                        <PropertyCard property={property}
+                            coords={coords}
+                            fv={favourite_properties.includes(property.id)} />
                     </div>
                 ))}
             </div>
