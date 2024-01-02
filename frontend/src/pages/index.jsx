@@ -3,6 +3,7 @@ import Header from '@/components/header'
 import Properties from '@/components/properties'
 import api from '@/api';
 import Head from 'next/head';
+import UserCheck from '@/components/UserCheck';
 
 export const getServerSideProps = async (context) => {
     try {
@@ -25,6 +26,7 @@ export default function Home(props) {
             </Head>
             <Header />
             <Properties properties={props.properties} />
+            <UserCheck />
         </>
     )
 }

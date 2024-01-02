@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image'
 import api from '@/api';
-import Modal from '@/components/Modal';
-import UserCheck from './UserCheck';
+import { openUserCheckModal } from '../UserCheck';
 import { auth_logout } from '@/components/authUtils';
 
 const Header = () => {
@@ -42,8 +41,8 @@ const Header = () => {
                             <li><a onClick={() => router.push('/update-password')}>Update password</a></li>
                             <li><a onClick={() => router.push('/profile')}>Profile</a></li>
                         </div> : <div className='py-1' role='none'>
-                            <li><a onClick={() => document.getElementById('login_signup_modal').showModal()}>Sign up</a></li>
-                            <li><a onClick={() => document.getElementById('login_signup_modal').showModal()}>Log in</a></li>
+                            <li><a onClick={openUserCheckModal}>Sign up</a></li>
+                            <li><a onClick={openUserCheckModal}>Log in</a></li>
                         </div>}
                         <div className='py-1' role='none'>
                             <li><a>Host your home</a></li>
@@ -52,9 +51,6 @@ const Header = () => {
                     </ul>
                 </div>
             </div>
-            <Modal id="login_signup_modal">
-                <UserCheck />
-            </Modal>
         </header>
     );
 };
