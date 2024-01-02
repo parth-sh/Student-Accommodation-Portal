@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropertyCard from './PropertyCard';
 import api from '@/api';
-import { set_user_profile } from '@/components/authUtils';
+import { is_logged_in, set_user_profile } from '@/components/authUtils';
 
 const Properties = ({ properties }) => {
     const [coords, setCoords] = useState(null);
@@ -46,8 +46,10 @@ const Properties = ({ properties }) => {
     }
 
     useEffect(() => {
-        getUserLocation();
-        getUserFavouriteProperties();
+        if (is_logged_in()) {
+            getUserLocation();
+            getUserFavouriteProperties();
+        }
     }, [])
 
     return (

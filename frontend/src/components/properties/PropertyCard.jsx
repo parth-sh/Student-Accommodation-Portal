@@ -51,7 +51,7 @@ const PropertyCard = ({ property, coords, fv }) => {
                 <p className="text-gray-900 text-sm"> {property.city} {property.state}, {property.country}</p>
                 <p className="text-sm font-bold"><i className="fas fa-star"></i> {parseFloat(property.average_rating).toFixed(1)}</p>
                 <p className="text-gray-400 text-sm">{measureDistance()}</p>
-                <p className="text-gray-400 text-sm">8-13 Mar</p>
+                <p className="text-gray-400 text-sm">{property.available_dates.split('..').join('-')}</p>
                 <p className="text-gray-700 text-sm"><span className="font-bold">{property.formatted_price}</span> night</p>
             </div>
         </div>
