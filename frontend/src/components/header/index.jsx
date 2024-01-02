@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image'
 import api from '@/api';
-import { openUserCheckModal } from '../UserCheck';
+import { openUserCheckModal } from '@/components/UserCheck';
 import { auth_logout } from '@/components/authUtils';
 
 const Header = () => {
