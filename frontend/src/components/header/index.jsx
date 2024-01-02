@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image'
 import api from '@/api';
 import { openUserCheckModal } from '@/components/UserCheck';
-import { auth_logout } from '@/components/authUtils';
+import { auth_logout, is_logged_in } from '@/components/authUtils';
 
 const Header = () => {
     const router = useRouter();
@@ -29,7 +29,7 @@ const Header = () => {
                 <div className="form-control flex-1">
                     <input type="text" placeholder="Search" className="input input-bordered w-[100%] md:w-[50%]" />
                 </div>
-                <div className="dropdown dropdown-end pl-8 pr-4" onClick={() => { setIsOpen(!isOpen); setIsLoggedIn(localStorage.getItem('loggedIn')) }}>
+                <div className="dropdown dropdown-end pl-8 pr-4" onClick={() => { setIsOpen(!isOpen); setIsLoggedIn(is_logged_in()) }}>
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
                             <Image src="/profile.png" width={100} height={100} alt="Picture of the author" />

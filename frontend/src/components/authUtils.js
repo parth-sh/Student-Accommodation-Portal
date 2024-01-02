@@ -11,3 +11,7 @@ export const auth_logout = () => {
 export const set_user_profile = (profile) => {
     localStorage.setItem("profile", profile);
 }
+
+export const is_logged_in = () => {
+    localStorage.getItem('loggedIn');
+}
